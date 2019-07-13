@@ -36,4 +36,9 @@ class SongsController < Sinatra::Base
   redirect to "songs/#{@song.slug}"
 end
 
+get '/songs/:slug' do
+  slug = params[:slug]
+  @song = Song.find_by_slug(slug)
+end
+
 end
