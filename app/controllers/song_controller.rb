@@ -42,4 +42,35 @@ get '/songs/:slug' do
   erb :"/songs/show"
 end
 
+patch '/songs/:slug' do
+  song = Song.find_by_slug(params[:slug])
+  song.name = params[:song][:name]
+
+  artist_name = params[:song][:artist]
+  if Artist.find_by(:name => artist_name)
+    if song.artist.name != artist_name
+      song.artist = Artist.find_by(:name => artist_name)
+    end
+  else
+    song.artist = Artist.create(:name => artist_name)
+  end
+  if song.genres
+    song.genres.clear
+  end
+  genres = params[:song][:genres]
+  genres.each do |genre|
+    song.genres << Genre.find(genre)
+end
+  song.save
+  flash[:message] = "Successfully updated song."
+end
+
+get '/songs/:slug/edit' do
+    slug = params[:slug]
+    @song = Song.find_by_slug(slug)
+    erb :"songs/edit"
+end
+
+end
+
 end
