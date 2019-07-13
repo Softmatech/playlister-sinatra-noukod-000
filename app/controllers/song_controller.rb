@@ -15,4 +15,5 @@ class SongsController < Sinatra::Base
 
   get '/songs/new' do
     @genres = Genre.all
+    erb :"songs/new"
   end
