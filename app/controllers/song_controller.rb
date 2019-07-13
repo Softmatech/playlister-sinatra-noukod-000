@@ -17,3 +17,15 @@ class SongsController < Sinatra::Base
     @genres = Genre.all
     erb :"songs/new"
   end
+
+  post '/songs' do
+    @song = Song.create(:name => params[:song][:name])
+    artist_entry = params[:song][:artist]
+    if Artist.find_by(:name => artist_entry)
+      artist = Artist.find_by(:name => artist_entry)
+    else
+      artist = Artist.create(:name => artist_entry)
+    end
+    @song.artist = artist
+    genre_selections = params[:song][:genres]
+  end
