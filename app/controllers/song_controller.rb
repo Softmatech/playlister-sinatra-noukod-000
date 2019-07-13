@@ -31,3 +31,5 @@ class SongsController < Sinatra::Base
     genre_selections.each do |genre|
       @song.genres << Genre.find(genre)
   end
+  @song.save
+end
