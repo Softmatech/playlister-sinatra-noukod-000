@@ -32,6 +32,7 @@ class SongsController < Sinatra::Base
       @song.genres << Genre.find(genre)
   end
   @song.save
+  flash[:message] = "Successfully created song."
 end
 
 end
