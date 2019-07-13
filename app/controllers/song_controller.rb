@@ -28,4 +28,6 @@ class SongsController < Sinatra::Base
     end
     @song.artist = artist
     genre_selections = params[:song][:genres]
+    genre_selections.each do |genre|
+      @song.genres << Genre.find(genre)
   end
